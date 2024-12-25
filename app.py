@@ -30,6 +30,15 @@ if chapter == "들어가며":
     st.title("기후 변화와 나의 생활")
     image_path = 'path_to_image.jpg'
     st.image(image_path, caption='기후 변화와 나의 생활')
+    st.write("""
+        **(2)환경과 에너지 - 3.온실효과와 지구 온난화 단원을 다룹니다.**
+        **"기후변화와 나의 생활"이라는 주제로 계획된 3차시 활동입니다.**
+             
+1차시 : 지구 온난화, 온실 가스와 온실효과, 기후 변화로 인한 여러가지 현상 및 피해 등의 개념을 다룹니다.
+2차시 : 지구 온난화에 큰 영향을 주는 온실가스(이산화탄소)의 연도별 대기 함유량 변화를, 여러 자료와의 연계성을 분석할 수 있도록 시각화하여 나타내는 활동을 합니다.
+3차시 : 지구 온난화 감소를 위해 할 수 있는 1. 과학적 방법과 2. 자신의 다짐을 기입하는 활동입니다.
+    """)
+
 
 elif chapter == "1차시 기본 개념 이해":
     st.header("1차시 기본 개념 이해")
@@ -55,17 +64,26 @@ elif chapter == "3차시 나의 생각":
 
         학번과 성명을 입력한 후, 1번과 2번 활동을 합니다.
     """)
+
+     # 선을 추가하여 시각적으로 구분
+    st.markdown("---")   
+    st.subheader("학번과 성명 입력")    
     student_id = st.number_input("학번을 입력합니다:", min_value=1, step=1, format="%d", key="student_id")
     student_name = st.text_input("성명을 입력합니다:", key="student_name")
 
+    st.markdown("---")  # 입력폼과 의견 입력 사이에 선 추가
+
     # Markdown을 사용하여 글자 크기 조정
-    st.markdown("#### 1) 지구 온난화를 해결할 수 있는 방법 제안해보기:")
+    st.markdown("#### 1) 지구 온난화를 해결할 수 있는 방법 제안해보기 (100자 이상 입력)")
     user_input1 = st.text_area("여기에 입력합니다...", key="user_input1")
+    st.caption(f"글자 수: {len(user_input1)}")
 
+    st.markdown("")  # 입력폼과 의견 입력 사이에 줄 띄기
+    st.markdown("")  # 입력폼과 의견 입력 사이에 줄 띄기
 
-
-    st.markdown("#### 2) 민주 시민으로서 참여할 수 있는 개인의 다짐 작성해보기:")
+    st.markdown("#### 2) 민주 시민으로서 참여할 수 있는 개인의 다짐 작성해보기 (100자 이상 입력)")
     user_input2 = st.text_area("여기에 입력합니다...", key="user_input2")
+    st.caption(f"글자 수: {len(user_input2)}")
 
     if st.button("제출"):
         if len(user_input1) >= 100 and len(user_input2) >= 100:
