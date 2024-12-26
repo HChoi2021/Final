@@ -16,6 +16,10 @@ st.set_page_config(page_title="기후 변화와 나의 생활", layout="wide")
 if "chapter" not in st.session_state:
     st.session_state.chapter = "들어가며"
 
+if "is_admin" not in st.session_state:
+    st.session_state.is_admin = False    
+    
+
 # 데이터베이스 연결 및 테이블 생성
 db_path = 'user_inputs.db'
 with sqlite3.connect(db_path) as conn:
@@ -60,13 +64,24 @@ st.sidebar.markdown(
     unsafe_allow_html=True
 )
 
-# 사이드바: 현재 선택된 차시
+# 사이드바 설정
 chapter_order = ["들어가며", "1.기본 개념 이해", "2.시각화 도구로 지구 온난화 이해", "3.나의 생각", "교사 수업 관리"]
-chapter = st.sidebar.radio(
-    "<활동 순서>",
-    chapter_order,
-    index=chapter_order.index(st.session_state.chapter)
-)
+chapter = st.sidebar.radio("<활동 순서>", chapter_order, index=chapter_order.index(st.session_state.chapter if "chapter" in st.session_state else "들어가며"))
+
+# 사이드바에 폼 추가
+with st.sidebar:
+    with st.form(key='login_form'):
+        admin_user = st.text_input("아이디", key="admin_user")
+        admin_password = st.text_input("비밀번호", type="password", key="admin_password")
+        submit_button = st.form_submit_button("로그인")
+
+    if submit_button:
+        if admin_user == "admin" and admin_password == "admin":
+            st.session_state.is_admin = True
+            st.sidebar.success("로그인 성공")      
+        else:
+            st.session_state.is_admin = False
+            st.error("접근 권한이 없습니다. 올바른 아이디와 비밀번호를 입력하세요.")
 
 # 버튼 추가 함수 정의
 def next_chapter_button(current_chapter):
@@ -223,54 +238,6 @@ elif chapter == "1.기본 개념 이해":
 
     next_chapter_button("1.기본 개념 이해")
 
-elif chapter == "교사 수업 관리":
-    st.title("교사 수업 관리")
-    # 데이터 조회 및 표시
-    with st.form("search_form"):
-        search_student_id = st.number_input("학번으로 검색:", min_value=0, step=1, format="%d")
-        search_student_name = st.text_input("이름으로 검색:")
-        search_submit_button = st.form_submit_button("검색")
-
-    with sqlite3.connect(db_path) as conn:
-        c = conn.cursor()
-        c.execute("SELECT student_id, student_name, chapter, answers, timestamp FROM responses")
-        
-        # 데이터베이스 쿼리 결과를 data 변수에 저장
-        data = c.fetchall()
-
-    # data 변수 사용 확인 - 스코프 밖에서 참조되지 않도록 조심
-    if not data:
-        st.write("응답 데이터가 없습니다.")
-    else:
-        # DataFrame 생성을 위한 준비
-        column_names = ["학번", "이름", "챕터", "의견1", "의견2", "의견3", "응답 시간"]
-        df_data = []
-
-        # 데이터 파싱 및 DataFrame 데이터 리스트 생성
-        for row in data:
-            student_id, student_name, chapter, answers_json, timestamp = row
-            # None 체크 및 JSON 파싱
-            if answers_json is not None:
-                answers = json.loads(answers_json)
-            else:
-                answers = {}  # answers_json이 None이면 빈 딕셔너리 사용
-
-            input1 = answers.get("input1", "")
-            input2 = answers.get("input2", "")
-            input3 = answers.get("input3", "")  # "input3"이 없는 경우 빈 문자열로 처리
-            df_data.append([student_id, student_name, chapter, input1, input2, input3, timestamp])
-
-        # 데이터 프레임 생성 및 출력
-        if df_data:
-            df = pd.DataFrame(df_data, columns=column_names)
-            st.dataframe(df)  # 화면에 데이터 프레임 표시
-        else:
-            st.write("표시할 데이터가 없습니다.")
-
-    if 'df' in st.session_state and not st.session_state.df.empty:
-        st.dataframe(st.session_state.df)
-
-
 
 elif chapter == "2.시각화 도구로 지구 온난화 이해":
     st.header("2.시각화 도구로 지구 온난화 이해")
@@ -281,11 +248,7 @@ elif chapter == "2.시각화 도구로 지구 온난화 이해":
     """)
 
 
-
-
     next_chapter_button("2.시각화 도구로 지구 온난화 이해")
-
-
 
 
 elif chapter == "3.나의 생각":
@@ -339,74 +302,67 @@ elif chapter == "3.나의 생각":
             st.error("각 의견을 최소 100자 이상 입력해야 제출할 수 있습니다.")
 
 elif chapter == "교사 수업 관리":
-    st.title("교사 수업 관리")
-    with sqlite3.connect(db_path) as conn:
-        c = conn.cursor()
-        c.execute("SELECT student_id, student_name, chapter, answers, timestamp FROM responses")
-        
-        # 데이터베이스 쿼리 결과를 data 변수에 저장
-        data = c.fetchall()
-
-    # data 변수 사용 확인 - 스코프 밖에서 참조되지 않도록 조심
-    if not data:
-        st.write("응답 데이터가 없습니다.")
-    else:
-        # DataFrame 생성을 위한 준비
-        column_names = ["학번", "이름", "챕터", "의견1", "의견2", "의견3", "응답 시간"]
-        df_data = []
-
-        # 데이터 파싱 및 DataFrame 데이터 리스트 생성
-        for row in data:
-            student_id, student_name, chapter, answers_json, timestamp = row
-            # None 체크 및 JSON 파싱
-            if answers_json is not None:
-                answers = json.loads(answers_json)
-            else:
-                answers = {}  # answers_json이 None이면 빈 딕셔너리 사용
-
-            input1 = answers.get("input1", "")
-            input2 = answers.get("input2", "")
-            input3 = answers.get("input3", "")  # "input3"이 없는 경우 빈 문자열로 처리
-            df_data.append([student_id, student_name, chapter, input1, input2, input3, timestamp])
-
-        # 데이터 프레임 생성 및 출력
-        if df_data:
-            df = pd.DataFrame(df_data, columns=column_names)
-            st.dataframe(df)  # 화면에 데이터 프레임 표시
-        else:
-            st.write("표시할 데이터가 없습니다.")
-
-    # 사이드바에 폼 추가
-    with st.sidebar.form(key='login_form'):
-        admin_user = st.text_input("아이디", key="admin_user")
-        admin_password = st.text_input("비밀번호", type="password", key="admin_password")
-        submit_button = st.form_submit_button("로그인")
-
-    # 로그인 상태 확인
-    if "is_admin" not in st.session_state:
-        st.session_state.is_admin = False
-        
-    if submit_button:
-        if admin_user == "admin" and admin_password == "admin":
-            st.session_state.is_admin = True
-        else:
-            st.session_state.is_admin = False
-            st.error("접근 권한이 없습니다. 올바른 아이디와 비밀번호를 입력하세요.")
-
     if st.session_state.is_admin:
+        st.title("교사 수업 관리")
+
         with st.form("search_form"):
             search_student_id = st.number_input("학번으로 검색:", min_value=0, step=1, format="%d")
             search_student_name = st.text_input("이름으로 검색:")
             search_submit_button = st.form_submit_button("검색")
+            show_all_button = st.form_submit_button("전체 데이터 보기")
 
+        # 검색 결과 처리
+        if search_submit_button:
+            with sqlite3.connect(db_path) as conn:
+                c = conn.cursor()
+                query = """
+                SELECT student_id, student_name, chapter, answers, timestamp 
+                FROM responses 
+                WHERE student_id LIKE ? AND student_name LIKE ?
+                """
+                # 검색 조건 적용
+                c.execute(query, ('%' + str(search_student_id) + '%', '%' + search_student_name + '%'))
+                data = c.fetchall()
+
+        elif show_all_button:
+            with sqlite3.connect(db_path) as conn:
+                c = conn.cursor()
+                c.execute("SELECT student_id, student_name, chapter, answers, timestamp FROM responses")
+                data = c.fetchall()
+        else:
+            data = None
+
+        # 데이터를 DataFrame으로 변환
+        if data:
+            column_names = ["학번", "이름", "챕터", "의견1", "의견2", "의견3", "응답 시간"]
+            df_data = []
+            for row in data:
+                student_id, student_name, chapter, answers_json, timestamp = row
+                answers = json.loads(answers_json) if answers_json else {}
+                df_data.append([
+                    student_id, student_name, chapter, 
+                    answers.get("input1", ""), 
+                    answers.get("input2", ""), 
+                    answers.get("input3", ""), 
+                    timestamp
+                ])
+
+            if df_data:
+                df = pd.DataFrame(df_data, columns=column_names)
+                st.session_state.df = df  # 데이터를 세션 상태에 저장
+                st.dataframe(df)  # 화면에 데이터 프레임 표시
+            else:
+                st.write("검색 결과가 없습니다.")
+
+        # 엑셀 파일 생성 및 다운로드 버튼 처리
         if 'df' in st.session_state and not st.session_state.df.empty:
-            st.dataframe(st.session_state.df)  # 화면에 데이터 프레임 유지
             if st.button("엑셀 파일 생성"):
                 output = BytesIO()
                 with pd.ExcelWriter(output, engine='openpyxl', datetime_format="yyyy-mm-dd hh:mm:ss") as writer:
                     st.session_state.df.to_excel(writer, index=False, sheet_name='Responses')
                 output.seek(0)
-                st.session_state.output = output  # 세션 상태에 output 저장
+                st.session_state.output = output  # 생성된 파일을 세션 상태에 저장
+                st.success("엑셀 파일이 생성되었습니다.")
 
             if 'output' in st.session_state:
                 st.download_button(
@@ -416,4 +372,4 @@ elif chapter == "교사 수업 관리":
                     mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
                 )
     else:
-        st.error("접근 권한이 없습니다. 올바른 아이디와 비밀번호를 입력하세요.")
+        st.warning("로그인이 필요합니다.")
