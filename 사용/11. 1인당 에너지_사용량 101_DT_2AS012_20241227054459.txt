@@ -1,0 +1,16 @@
+<통계표 메타자료>
+
+○ 통계표ID : DT_2AS012
+
+○ 통계표명 : 에너지 사용량
+
+○ 출처 : KOSIS(통계청 통계서비스기획과), 2024.12.27 05:44
+
+○ 통계표URL : https://kosis.kr/statHtml/statHtml.do?orgId=101&tblId=DT_2AS012&conn_path=I3
+              * KOSIS 개편 시 통계표 URL은 달라질 수 있음
+
+○ 단위 : kg of oil equivalent per capita
+
+○ 주석
+ ■ 통계표
+  에너지 사용량은 원유 생산량에 수입유 및 재고량 변화를 더하고 국제운송에 종사하는 선박 및 항공기에 공급되는 수출유 및 연료를 뺀 다른 최종 용도 연료로 전환하기 전의 1차 에너지 사용을 의미한다.

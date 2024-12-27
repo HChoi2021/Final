@@ -7,6 +7,9 @@ from datetime import datetime  # 날짜 및 시간 모듈 추가
 from PIL import Image
 import base64
 import json  # JSON 모듈 추가
+import matplotlib.pyplot as plt
+import mplcursors
+
 
 
 # 페이지 설정 (코드 가장 위에 위치해야 함)
@@ -244,8 +247,199 @@ elif chapter == "2.시각화 도구로 지구 온난화 이해":
     st.write("""
         **지구 온난화 현황을 다양한 시각화 도구로 학습합니다.**
 
-        다양한 시각화 도구를 사용하여 지구 온난화의 상황과 영향을 살펴봅니다.
+        자신이 직접 다양한 시각화 도구를 조합해 사용하며 지구 온난화의 상황과 영향을 살펴봅니다.
     """)
+
+    st.header("(1) 연도별 지구 평균온도 변화")
+
+    # 데이터 불러오기
+    file_path = '01.xlsx'
+    data = pd.read_excel(file_path, engine='openpyxl')  # 엔진을 openpyxl로 지정
+
+    # 'Year'와 'Temperature Change' 열을 정의
+    years = data['Year']  # 'Year' 열 이름에 맞추어 수정
+    temp_changes = data['평균온도 변화(섭씨온도)']  # 'Temperature Change' 열 이름에 맞추어 수정
+
+    # DataFrame으로 결합
+    df = pd.DataFrame({'Year': years, '평균온도 변화(섭씨온도)': temp_changes}).dropna()
+
+    # 다시 years와 temp_changes 정의
+    years = df['Year'].tolist()
+    temp_changes = df['평균온도 변화(섭씨온도)'].tolist()
+
+    # 길이 확인
+    if len(years) != len(temp_changes):
+        st.error("연도와 온도 변화 데이터의 길이가 일치하지 않습니다.")
+    else:
+        # 한글 폰트 설정
+        plt.rc('font', family='NanumGothic')
+        plt.rc('axes', unicode_minus=False)
+        
+        plt.figure(figsize=(10, 5))  # 그래프 크기 설정
+        line = plt.plot(years, temp_changes, marker='o', linestyle='-', color='b', label='온도 변화')  # unpacking the line
+        plt.axhline(0, color='red', linestyle='--', linewidth=1)  # 기준선 추가
+        plt.title('Global Average Temperature Change Over Time')
+        plt.xlabel('Year')
+        plt.ylabel('Average Temperature Change (°C)')
+        plt.grid(True)
+        
+        # mplcursors를 사용하여 데이터 레이블 표시
+        mplcursors.cursor(line, hover=True)
+
+        st.pyplot(plt)  # Streamlit에 그래프 표시
+
+    # 데이터베이스 경로 설정
+    db_path = 'responses.db'
+
+    # 데이터베이스 연결 및 테이블 생성
+    with sqlite3.connect(db_path) as conn:
+        c = conn.cursor()
+        c.execute('''
+            CREATE TABLE IF NOT EXISTS responses (
+                student_id INTEGER,
+                student_name TEXT,
+                chapter TEXT,
+                answers TEXT,
+                timestamp TEXT
+            )
+        ''')
+        conn.commit()
+
+    # 학생 정보 입력 받기
+    st.header("(2) 연도별 지구 평균온도 변화에 대한 나의 생각")
+
+    student_id = st.number_input("학번을 입력합니다:", min_value=1, step=1, format="%d")
+    student_name = st.text_input("성명을 입력합니다:")
+    input1 = st.text_area("가. 1880년부터 연도별로 지구 평균 온도는 어떻게 변화하고 있나요?")
+    input2 = st.text_area("나. 1980년부터 지구 평균 온도는 어떻게 변화하고 있나요?")
+    input3 = st.text_area("다. 그 이유는 무엇이라고 생각하나요?")
+
+    if st.button("제출"):
+        timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+        answers = {
+            "input1": input1,
+            "input2": input2,
+            "input3": input3
+        }
+        with sqlite3.connect(db_path) as conn:
+            c = conn.cursor()
+            chapter = "1. 기본 개념 이해"  # 현재 챕터 값 설정
+            c.execute('''
+                INSERT INTO responses (student_id, student_name, chapter, answers, timestamp)
+                VALUES (?, ?, ?, ?, ?)
+            ''', (student_id, student_name, chapter, json.dumps(answers), timestamp))
+            conn.commit()
+        st.success("응답이 저장되었습니다.")
+
+
+    # 데이터 불러오기
+    file_path = '02.xlsx'
+    data = pd.read_excel(file_path, engine='openpyxl', header=0)  # 첫 번째 행을 헤더로 설정
+
+    # 데이터 전처리
+    data.columns = data.columns.str.strip()  # 열 이름의 공백 제거
+    data.set_index('Year', inplace=True)  # 'Year' 열을 인덱스로 설정
+    data = data.apply(pd.to_numeric, errors='coerce')  # 숫자로 변환
+
+    st.header("(3) 안면도의 온실가스량 변화")
+
+    # 데이터 구조 확인 (디버깅용)
+    st.write(data)
+
+    # 전체 그래프 vs 개별 그래프 선택
+    show_all = st.radio("그래프 보기 옵션", ("개별 온실가스", "전체 온실가스"))
+
+    if show_all == "개별 온실가스":
+        # 온실가스 종류 옵션
+        gas_options = data.columns.tolist()  # 열 이름(온실가스 종류)
+        selected_gas = st.selectbox("온실가스 선택", gas_options)
+
+        # 그래프 그리기
+        st.header(f"안면도 온실가스 {selected_gas} 연도별 현황")
+        plt.figure(figsize=(10, 5))
+
+        if selected_gas in data.columns:
+            plt.plot(data.index, data[selected_gas], marker='o', label=selected_gas)
+            plt.title(f"안면도 온실가스 {selected_gas} 연도별 현황")
+            plt.xlabel("연도")
+            plt.ylabel(f"{selected_gas} 농도")
+            plt.grid()
+            plt.legend()
+            plt.tight_layout()  # 그래프 간격 조정
+            st.pyplot(plt)
+        else:
+            st.error(f"{selected_gas}의 데이터가 없습니다.")
+
+    else:
+        # 전체 그래프 그리기
+        st.header("안면도 온실가스")  # 그래프 제목 변경
+        plt.figure(figsize=(10, 5))
+
+        for gas in data.columns:
+            plt.plot(data.index, data[gas], marker='o', label=gas)
+
+        plt.title("안면도 온실가스")  # 그래프 제목
+        plt.xlabel("연도")
+        plt.ylabel("농도")
+        plt.grid()
+        plt.legend()
+        plt.tight_layout()  # 그래프 간격 조정
+        st.pyplot(plt)
+
+
+    st.header("(4) 고산의 온실가스량 변화")
+    # 데이터 불러오기
+    file_path = '03.xlsx'
+    data = pd.read_excel(file_path, engine='openpyxl', header=0)  # 첫 번째 행을 헤더로 설정
+
+    # 데이터 전처리
+    data.columns = data.columns.str.strip()  # 열 이름의 공백 제거
+    data.set_index('Year', inplace=True)  # 'Year' 열을 인덱스로 설정
+    data = data.apply(pd.to_numeric, errors='coerce')  # 숫자로 변환
+
+    # 데이터 구조 확인 (디버깅용)
+    st.write(data)
+
+    # 전체 그래프 vs 개별 그래프 선택
+    show_all = st.radio("그래프 보기 옵션", ("개별 온실가스", "전체 온실가스"), key="gas_option")
+
+    if show_all == "개별 온실가스":
+        # 온실가스 종류 옵션
+        gas_options = data.columns.tolist()  # 열 이름(온실가스 종류)
+        selected_gas = st.selectbox("온실가스 선택", gas_options, key="selected_gas")
+
+        # 그래프 그리기
+        st.header(f"고산 {selected_gas} 연도별 현황")
+        plt.figure(figsize=(10, 5))
+
+        if selected_gas in data.columns:
+            plt.plot(data.index, data[selected_gas], marker='o', label=selected_gas)
+            plt.title(f"고산 {selected_gas} 연도별 현황")
+            plt.xlabel("연도")
+            plt.ylabel(f"{selected_gas} 농도")
+            plt.grid()
+            plt.legend()
+            plt.tight_layout()  # 그래프 간격 조정
+            st.pyplot(plt)
+        else:
+            st.error(f"{selected_gas}의 데이터가 없습니다.")
+
+    else:
+        # 전체 그래프 그리기
+        st.header("온실가스 연도별 현황")  # 그래프 제목 변경
+        plt.figure(figsize=(10, 5))
+
+        for gas in data.columns:
+            plt.plot(data.index, data[gas], marker='o', label=gas)
+
+        plt.title("온실가스 연도별 현황")  # 그래프 제목
+        plt.xlabel("연도")
+        plt.ylabel("농도")
+        plt.grid()
+        plt.legend()
+        plt.tight_layout()  # 그래프 간격 조정
+        st.pyplot(plt)
+
 
 
     next_chapter_button("2.시각화 도구로 지구 온난화 이해")

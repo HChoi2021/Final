@@ -1,0 +1,30 @@
+<통계표 메타자료>
+
+○ 통계표ID : DT_2AQ358
+
+○ 통계표명 : 에너지의존도, 효율성 및 이산화탄소배출량
+
+○ 출처 : KOSIS(통계청 통계서비스기획과), 2024.12.26 22:24
+
+○ 통계표URL : https://kosis.kr/statHtml/statHtml.do?orgId=101&tblId=DT_2AQ358&conn_path=I3
+              * KOSIS 개편 시 통계표 URL은 달라질 수 있음
+
+○ 주석
+ ■ 항목 > 순에너지수입　
+  순에너지수입은 에너지 사용량에서 생산량을 차감하여 추정하고, 석유 등가물로 측정. 마이너스 값은 순 수출국임을 나타냄. 에너지 사용은 다른 최종 사용 연료로 전환하기 전의 1차 에너지 사용을 의미하며, 이는 국내 에너지 생산에 수입 및 재고 변경사항을 더하고 국제 운송용 선박과 항공기에 공급되는 연료와 수출을 빼서 계산. 
+  출처: IEA Statistics © OECD/IEA 2014 (https://www.iea.org/data-and-statistics), subject to https://www.iea.org/terms/
+ ■ 항목 > 에너지사용단위당 GDP
+  에너지사용단위당 GDP는 에너지 사용에 해당하는 유류 1 킬로그램당 PPP GDP를 의미. PPP GDP는 구매력 평가율을 사용하여 2021년 불변 국제 달러로 변환된 국내 총생산이며, 국제 달러가 갖는 GDP 대비 구매력은 1달러가 미국에서 갖는 구매력과 동일. 
+  출처: IEA Statistics © OECD/IEA 2014 (https://www.iea.org/data-and-statistics), subject to https://www.iea.org/terms/
+ ■ 항목 > 이산화탄소배출량　
+  이산화탄소배출량은 화석 연료의 연소와 시멘트 제조로 인하여 발생하며, 고체, 액체, 가스 연료의 소비, 가스 연소 중에 생성되는 이산화탄소를 포함. 
+  출처: Climate Watch Historical 온실가스 배출량(1990-2020). 2023. 워싱턴 DC: 세계자원연구소. https://www.climatewatchdata.org/ghg-emissions을 참조.
+ ■ 항목 > 이산화탄소배출량(탄소강도)　
+  고체 연료 소비로 인한 이산화탄소 배출량은 주로 석탄을 에너지원으로 사용시 배출되는 배출량. 
+  출처: 미국 테네시주 오크리지 국립연구소, 환경과학부, 이산화탄소 정보분석센터
+ ■ 항목 > 1인당 이산화탄소배출량
+  이산화탄소 배출량은 화석 연료 연소 및 시멘트 제조에서 발생하는 배출량으로, 고체, 액체 및 가스 연료 소비 및 가스 플레어링 과정에서 발생하는 이산화탄소가 포함. 
+  출처: Climate Watch. 2020. 온실가스 배출량. 워싱턴 DC: 세계자원연구소. https://www.climatewatchdata.org/ghg-emissions을 참조. 분모의 출처는 SP.POP.TOTL을 참조.
+ ■ 항목 > 이산화탄소배출량(GDP 달러당 kg, 2017년 PPP 기준)
+  이산화탄소 배출량은 화석 연료 연소 및 시멘트 제조에서 발생하는 배출량으로, 고체, 액체 및 가스 연료 소비 및 가스 플레어링 과정에서 발생하는 이산화탄소가 포함. 
+  출처: Climate Watch. 2020. 온실가스 배출량. 워싱턴 DC: 세계자원연구소. https://www.climatewatchdata.org/ghg-emissions을 참조. 분모의 출처는 NY.GDP.MKTP.PP.KD를 참조.

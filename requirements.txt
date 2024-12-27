@@ -18,3 +18,6 @@ streamlit-option-menu
 millify
 pingouin
 jupyterlab
+sqlite3
+base64
+json

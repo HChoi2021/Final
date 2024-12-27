@@ -1,0 +1,14 @@
+<통계표 메타자료>
+
+○ 통계표ID : DT_2AS011
+
+○ 통계표명 : 1인당 전력소비량
+
+○ 출처 : KOSIS(통계청 통계서비스기획과), 2024.12.26 22:20
+
+○ 통계표URL : https://kosis.kr/statHtml/statHtml.do?orgId=101&tblId=DT_2AS011&conn_path=I3
+              * KOSIS 개편 시 통계표 URL은 달라질 수 있음
+
+○ 주석
+ ■ 통계표
+  전력소비량은 발전소와 열병합발전소 (combined heat and power plants)의 생산량에서 송전, 배전, 변환손실과 열·발전소의 자체 사용량을 차감하여 구한다.

@@ -1,0 +1,48 @@
+<통계표 메타자료>
+
+○ 통계표ID : DT_2AQ359
+
+○ 통계표명 : 온실가스배출량
+
+○ 출처 : KOSIS(통계청 통계서비스기획과), 2024.12.26 22:25
+
+○ 통계표URL : https://kosis.kr/statHtml/statHtml.do?orgId=101&tblId=DT_2AQ359&conn_path=I3
+              * KOSIS 개편 시 통계표 URL은 달라질 수 있음
+
+○ 주석
+ ■ 항목 > 온실가스배출량
+  온실가스배출량은 이산화탄소 환산톤(kt)으로 단기 바이오매스 연소(농업 폐기물 연소 및 사바나 연소)를 제외한 CO2 총합으로 구성되지만 기타 바이오매스 연소(예: 산불, 연소 후 부패, 토탄 화재, 배수된 이탄 지대 부패), 모든 인위적 CH4 발생원, N2O 발생원, F-가스(HFC, PFC, SF6)를 포함. 
+  출처: Climate Watch Historical 온실가스 배출량(1990-2020). 2023. 워싱턴 DC: 세계자원연구소. https://www.climatewatchdata.org/ghg-emissions을 참조.
+ ■ 항목 > 온실가스배출량(증감률)
+  단기 주기의 바이오매스 연소(예: 농업 폐기물 연소 및 사바나 연소)를 제외한 CO2 총량으로, 다른 바이오매스 연소(예: 산불, 연소 후 부식, 이탄 연소, 배수 이탄 지대의 부식), 모든 인위 생성된 CH4 및 N2O, F-가스(HFC, PFC 및 SF6)를 포함함. 연도별 데이터는 1990년 이후 매년 백분율 변화를 보여줌. 
+  출처: World Bank가 다음 데이터 소스를 기반으로 추정. European Commission, 공동연구센터(JRC)/ 네덜란드 환경 평가원(PBL). 글로벌 대기 연구를 위한 배출 데이터베이스(EDGAR), EDGARv4.2 FT2012: http://edgar.jrc.ec.europa.eu/
+ ■ 항목 > 메탄배출량
+  메탄배출량은 농업 및 산업용 메탄 생산과 같은 인간 활동에서 발생. 
+  출처: Climate Watch Historical 온실가스 배출량(1990-2020). 2023. 워싱턴 DC: 세계자원연구소. https://www.climatewatchdata.org/ghg-emissions을 참조.
+ ■ 항목 > 메탄배출량(증감률)
+  메탄배출량은 농업 및 산업용 메탄 생산 등 인간 활동에서 발생한 것이며, 연도별 데이터는 1990년 이후 매년 백분율 변화를 보여줌. 
+  출처: World Bank가 다음 데이터 소스를 기반으로 추정. European Commission, 공동연구센터(JRC)/ 네덜란드 환경 평가원(PBL). 글로벌 대기 연구를 위한 배출 데이터베이스(EDGAR), EDGARv4.2 FT2012: http://edgar.jrc.ec.europa.eu/
+ ■ 항목 > 메탄배출량(에너지처리과정)
+  에너지 공정에서 배출되는 메탄은 화석 연료 및 바이오 연료의 생산, 취급, 전달 및 연소로 인한 배출. 
+  출처: World Bank가 다음 데이터 소스를 기반으로 추정. European Commission, 공동연구센터(JRC)/ 네덜란드 환경 평가원(PBL). 글로벌 대기 연구를 위한 배출 데이터베이스(EDGAR), EDGARv4.2 FT2012: http://edgar.jrc.ec.europa.eu/
+ ■ 항목 > 메탄배출량(농업)
+  메탄배출량(농업)은 가축, 축산 폐기물, 쌀 생산, 농업 폐기물 연소(비 에너지, 현장) 및 사바나 연소로 인한 배출. 
+  출처: World Bank가 다음 데이터 소스를 기반으로 추정. European Commission, 공동연구센터(JRC)/ 네덜란드 환경 평가원(PBL). 글로벌 대기 연구를 위한 배출 데이터베이스(EDGAR), EDGARv4.2 FT2012: http://edgar.jrc.ec.europa.eu/
+ ■ 항목 > 아산화질소배출량　
+  아산화질소배출량은 농업용 바이오매스 연소, 산업 활동, 가축 관리로 인해 발생. 
+  출처: Climate Watch Historical 온실가스 배출량(1990-2020). 2023. 워싱턴 DC: 세계자원연구소. https://www.climatewatchdata.org/ghg-emissions을 참조.
+ ■ 항목 > 아산화질소배출량(증감률)　
+  아산화질소배출량은 농업용 바이오 매스 연소, 산업 활동 및 가축 관리로 인한 배출. 연도별 데이터는 1990년 이후 매년 백분율 변화를 보여줌. 
+  출처: World Bank가 다음 데이터 소스를 기반으로 추정. European Commission, 공동연구센터(JRC)/ 네덜란드 환경 평가원(PBL). 글로벌 대기 연구를 위한 배출 데이터베이스(EDGAR), EDGARv4.2 FT2012: http://edgar.jrc.ec.europa.eu/
+ ■ 항목 > 아산화질소배출량(에너지처리과정)　　
+  에너지 공정에서 배출되는 아산화질소배출량은 화석 연료와 바이오 연료의 연소로 생성되는 배출. 
+  출처: World Bank가 다음 데이터 소스를 기반으로 추정. European Commission, 공동연구센터(JRC)/ 네덜란드 환경 평가원(PBL). 글로벌 대기 연구를 위한 배출 데이터베이스(EDGAR), EDGARv4.2 FT2012: http://edgar.jrc.ec.europa.eu/
+ ■ 항목 > 아산화질소배출량(농업)　　
+  아산화질소배출량(농업)은 비료 사용(합성 및 가축 분뇨), 축산 폐기물 관리, 농업 폐기물 연소(비 에너지, 현장) 및 사바나 연소를 통해 생성되는 배출. 
+  출처: World Bank가 다음 데이터 소스를 기반으로 추정. European Commission, 공동연구센터(JRC)/ 네덜란드 환경 평가원(PBL). 글로벌 대기 연구를 위한 배출 데이터베이스(EDGAR), EDGARv4.2 FT2012: http://edgar.jrc.ec.europa.eu/.
+ ■ 항목 > 기타 온실가스배출량
+  기타 온실가스배출량은 수소불화탄소, 과불화탄소, 육플루오린화황의 부산물 배출. 
+  출처: World Bank가 다음 데이터 소스를 기반으로 추정. European Commission, 공동연구센터(JRC)/ 네덜란드 환경 평가원(PBL). 글로벌 대기 연구를 위한 배출 데이터베이스(EDGAR), EDGARv4.2 FT2012: http://edgar.jrc.ec.europa.eu/
+ ■ 항목 > 기타 온실가스배출량(증감률)
+  기타 온실가스배출량은 수소불화탄소, 과불화탄소, 육플루오린화황의 부산물 배출. 연도별 데이터는 1990년 이후 매년 백분율 변화를 보여줌. 
+  출처: World Bank가 다음 데이터 소스를 기반으로 추정. European Commission, 공동연구센터(JRC)/ 네덜란드 환경 평가원(PBL). 글로벌 대기 연구를 위한 배출 데이터베이스(EDGAR), EDGARv4.2 FT2012: http://edgar.jrc.ec.europa.eu/
