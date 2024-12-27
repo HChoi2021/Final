@@ -21,7 +21,17 @@ if "chapter" not in st.session_state:
 
 if "is_admin" not in st.session_state:
     st.session_state.is_admin = False    
-    
+
+st.markdown(
+    """
+    <style>
+    body {
+        font-family: 'Malgun Gothic', 'Apple SD Gothic Neo', 'Noto Sans KR', sans-serif;
+    }
+    </style>
+    """,
+    unsafe_allow_html=True
+)    
 
 # 데이터베이스 연결 및 테이블 생성
 db_path = 'user_inputs.db'
