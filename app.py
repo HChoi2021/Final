@@ -8,6 +8,7 @@ from PIL import Image
 import base64
 import json  # JSON 모듈 추가
 import matplotlib.pyplot as plt
+import matplotlib as mpl
 import mplcursors
 
 
@@ -373,6 +374,10 @@ elif chapter == "2.시각화 도구로 지구 온난화 이해":
         plt.figure(figsize=(10, 5))
 
         if selected_gas in data.columns:
+            # 한글 폰트 설정
+            mpl.rc('font', family='NanumGothic')  # 사용할 한글 폰트
+            mpl.rc('axes', unicode_minus=False)  # 음수 기호가 깨지는 문제 해결
+
             plt.plot(data.index, data[selected_gas], marker='o', label=selected_gas)
             plt.title(f"안면도 온실가스 {selected_gas} 연도별 현황")
             plt.xlabel("연도")
@@ -427,6 +432,9 @@ elif chapter == "2.시각화 도구로 지구 온난화 이해":
         plt.figure(figsize=(10, 5))
 
         if selected_gas in data.columns:
+            # 한글 폰트 설정
+            mpl.rc('font', family='NanumGothic')  # 사용할 한글 폰트
+            mpl.rc('axes', unicode_minus=False)  # 음수 기호가 깨지는 문제 해결
             plt.plot(data.index, data[selected_gas], marker='o', label=selected_gas)
             plt.title(f"고산 {selected_gas} 연도별 현황")
             plt.xlabel("연도")
