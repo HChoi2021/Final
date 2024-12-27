@@ -19,3 +19,4 @@ millify
 pingouin
 jupyterlab
 mplcursors
+openpyxl
