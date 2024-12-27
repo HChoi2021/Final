@@ -25,13 +25,17 @@ if "is_admin" not in st.session_state:
 st.markdown(
     """
     <style>
+    @font-face {
+        font-family: 'CustomFont';
+        src: url('NanumGothic.ttf') format('truetype');  /* 경로와 형식을 적절히 수정 */
+    }
     body {
-        font-family: 'Malgun Gothic', 'Apple SD Gothic Neo', 'Noto Sans KR', sans-serif;
+        font-family: 'CustomFont', sans-serif;
     }
     </style>
     """,
     unsafe_allow_html=True
-)    
+)
 
 # 데이터베이스 연결 및 테이블 생성
 db_path = 'user_inputs.db'
